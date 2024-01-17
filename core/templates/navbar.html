@@ -1,0 +1,48 @@
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">PET FAIR BD</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="">Home</a>
+        </li>
+        
+        {% if request.user.is_authenticated %}
+          <li class="nav-item mx-3">
+          <a class="nav-link active" aria-current="page" href="">Deposit</a>
+        </li>
+          
+          
+          {% endif %}
+        
+      </ul>
+      <div class="d-flex">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if request.user.is_authenticated %}li class="nav-item mx-3">
+          <a class="nav-link active text-white px-3" aria-current="page" href="">Welcome Mr. ( {{request.user.username}} )</a>
+        </li>
+          <a class="nav-link active btn btn-info text-dark px-3" aria-current="page" href="">Balance: $</a>
+        </li>
+          
+          <li class="nav-item mx-3">
+          <a class="nav-link active btn btn-outline-warning text-dark" aria-current="page" href="">Profile</a>
+        </li>
+          <li class="nav-item mx-3">
+          <a class="nav-link active btn btn-outline-danger text-dark" aria-current="page" href="">Logout</a>
+        </li>
+          {% else %}
+          <li class="nav-item mx-3">
+          <a class="nav-link active btn btn-outline-warning text-dark" aria-current="page" href="{% url 'register' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active btn btn-outline-primary text-dark" href="{% url 'login' %}" aria-current="page" href="{% url 'login' %}">Login</a>
+        </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
