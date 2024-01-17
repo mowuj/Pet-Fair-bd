@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('customer/',include('customer.urls')),
     path('pet/',include('pet.urls')),
+    path('transaction/',include('transaction.urls')),
 
 ]
 urlpatterns += static(settings.MEDIA_URL,

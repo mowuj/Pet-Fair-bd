@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'pet',
     'core',
     'customer',
+    'transaction',
     "crispy_forms",
     "crispy_bootstrap5",
 ]
