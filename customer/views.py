@@ -15,19 +15,20 @@ from django.template.loader import render_to_string
 
 
 class UserRegistrationView(FormView):
-    template_name=''
-    success_url=reverse_lazy('')
+    template_name='customer/register.html'
+    success_url=reverse_lazy('login')
     form_class=UserRegistrationForm
 
-    def form_valid(self,form):
-        user=form.save()
-        login(self.request,user)
-        messages.success(self.request,"Welcome! You have registered Successfully")
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        messages.success(
+            self.request, "Welcome! You have registered Successfully")
         return super().form_valid(form)
     
 class UserLoginView(LoginView):
-    template_name=''
+    template_name='customer/login.html'
 
     def get_success_url(self):
         messages.success(self.request, "You are Successfully logged in ")
-        return reverse_lazy('profile')
+        return reverse_lazy('login')

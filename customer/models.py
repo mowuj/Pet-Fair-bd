@@ -11,7 +11,7 @@ class Customer(models.Model):
     street_address = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    image=models.ImageField(upload_to='customer/images')
+    image=models.ImageField(upload_to='customer/images',null=True,blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user

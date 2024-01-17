@@ -14,11 +14,12 @@ class UserRegistrationForm(UserCreationForm):
     image=forms.ImageField()
 
     class Meta:
-        model=User
-        fields = ['username','password1', 'password2','first_name','last_name','email','gender','street_address','city','country','image']
+        model = User
+        fields = ['username', 'password1', 'password2', 'first_name',
+                  'last_name', 'email', 'gender', 'street_address', 'city', 'country', 'image']
 
-    def save(self,commit=False):
-        user=super().save(commit=False)
+    def save(self, commit=True):
+        user = super().save(commit=False)
         if commit:
             user.save()
             phone = self.cleaned_data.get('phone')
@@ -53,7 +54,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model=User
-        fields = ["username", "first_name", "last_name", "email","image"]
+        fields = ["username", "first_name", "last_name", "email"]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
