@@ -5,7 +5,8 @@
 {% endblock title %}
 
 {% block content %}
-  <h1 class="text-center my-3">{{title}}</h1>
+  <div class="container m-auto" style="height: 100vh;">
+    <h1 class="text-center my-3">{{title}}</h1>
     
 <form action="" method="post" class="w-50 m-auto" novalidate>
         <!-- {{form | crispy}} -->
@@ -24,5 +25,6 @@
         <br>
         <input class="btn btn-primary my-2" type="submit" value="Submit">
     </form>
+  </div>
   
 {% endblock content %}

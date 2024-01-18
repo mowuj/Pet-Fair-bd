@@ -65,7 +65,7 @@ class BuyPetView(TransactionViewMixin):
     def get_initial(self):
         id = self.kwargs['id']
         pet = Pet.objects.get(pk=id)
-        initial = {'transaction_type': BUY,
+        initial = {'transaction_type':BUY,
                    'amount': pet.price, 'pet': pet}
         return initial
 
@@ -81,7 +81,7 @@ class BuyPetView(TransactionViewMixin):
     def form_valid(self, form):
         id = self.kwargs['id']
         customer = self.request.user.customer
-        pet = pet.objects.get(id=id)
+        pet = Pet.objects.get(id=id)
         amount = pet.price
 
         if customer.balance < amount:
