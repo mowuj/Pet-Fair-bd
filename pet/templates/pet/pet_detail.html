@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %} 
 
 {% block title %}
-<title>Book Details</title>
+<title>pet Details</title>
 {% endblock title %}
 {% block content %}
 <div class="container">
@@ -19,13 +19,59 @@
     
     <h5>Price : {{pet.price}}</h5>
     <h5>Categories: {% for cat in pet.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h5>
-
+    
+    <h6>Total Review: {{ review | length }}</h6>
     <form action="{% url 'buy_pet' pet.id %}" method="post">
   {% csrf_token %}
   <input type="submit" class="btn btn-warning" value="Adopt Now">
 </form>
+</form>
+    
   </div>
 </div>
+</div>
+<div class="row mt-4">
+  <div class="col-6">
+    <div class="card">
+  <div class="card-body">
+    <h4 class="card-title text-center">Reviews</h4>
+    {% for review_item in review %}
+      <div class="border-bottom py-3">
+        <div class="mb-2">
+          <h5 class="m-0 fw-bold">By: {{ review_item.user.username }} <small class="fw-normal">({{ review_item.timestamps|date:"d M Y h:i A" }})</small> </h5>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+          <p class="m-0 me-2 fw-bold">Rating:</p>
+          <div class="star-rating">
+            {% for _ in "x"|ljust:review_item.rating|slice:":5" %}
+              <i class="fa fa-star" style="color: gold;"></i>
+            {% endfor %}
+          </div>
+        </div>
+        <p class="m-0">{{ review_item.body }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+
+  <div class="col-6 mb-5">
+    <h1 class="text-center my-4">Review This pet</h1>
+    <div class="card">
+      <div class="card-body">
+        
+        <form action="" class="w-100" method="post">
+          {% csrf_token %}
+          {{ review_form | crispy }}
+          <div class="row justify-content-center">
+                <div class="col-6">
+                    <input class="btn btn-warning btn-block mt-3 px-5" type="submit" value="Submit" />
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 </div>

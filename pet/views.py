@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
-from .models import Pet,Category
-from .forms import PetForm
+from .models import Pet,Category,Review
+from .forms import PetForm,ReviewForm
 from django.views.generic import CreateView,UpdateView,DetailView,DeleteView
 from django.views import View
+from django.contrib import messages
+from transaction . models import Transaction
 # Create your views here.
 
 class AddPetView(CreateView):
@@ -19,8 +21,48 @@ class AddPetView(CreateView):
 
 class PetDetailView(DetailView):
     model = Pet
-    pk_url_kwarg='id'
-    template_name='pet/pet_detail.html'
+    pk_url_kwarg = 'id'
+    template_name = 'pet/pet_detail.html'
+    context_object_name = 'pet'
+
+    def post(self, request, *args, **kwargs):
+        pet = self.get_object()
+        review_form = ReviewForm(data=request.POST)
+
+        if review_form.is_valid():
+            is_buy = Transaction.objects.filter(
+                pet=pet, customer=self.request.user.customer).exists()
+            if is_buy==False:
+                messages.info(
+                    request, "You can Review only after buy this pet.")
+                return redirect("profile")
+            is_already_reviewed = Review.objects.filter(
+                pet=pet, user=request.user).exists()
+
+            if is_already_reviewed:
+                messages.info(request, "You have already reviewed for this pet.")
+                return redirect("profile")
+
+            new_review = review_form.save(commit=False)
+            new_review.pet = pet
+            new_review.user = request.user
+            new_review.save()
+
+            messages.success(request, "Thanks for your valuable review")
+
+            return render(request, self.template_name, self.get_context_data())
+
+        return self.get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pet = self.get_object()
+        review = pet.reviews.all()
+        review_form = ReviewForm()
+
+        context['review'] = review
+        context['review_form'] = review_form
+        return context
 
 
 class AllPetView(View):

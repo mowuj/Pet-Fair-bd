@@ -19,7 +19,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from .models import Customer
 from django.contrib.auth.models import User
-
+from pet .models import Pet
 class UserRegistrationView(FormView):
     template_name = 'customer/register.html'
     success_url = reverse_lazy('login')
@@ -72,6 +72,7 @@ class UserProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = UserUpdateForm(instance=request.user)
+        pets=Pet.objects.filter(user=request.user)
         customer = self.request.user.customer
         buy = Transaction.objects.filter(
             transaction_type=BUY, customer=self.request.user.customer)
@@ -79,4 +80,4 @@ class UserProfileView(LoginRequiredMixin, View):
             total_price=Sum('amount')
         )['total_price'] or 0
 
-        return render(request, self.template_name, {"form": form, "buy": buy, "total_borrowing_price": total_buy_price, 'customer': customer})
+        return render(request, self.template_name, {"form": form, "buy": buy, "total_borrowing_price": total_buy_price, 'customer': customer,"pets":pets})
