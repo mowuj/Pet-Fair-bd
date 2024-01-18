@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %} 
+
+{% block title %}
+<title>Book Details</title>
+{% endblock title %}
+{% block content %}
+<div class="container">
+  
+<div class="rows">
+  <div class="d-flex justify-content-center align-items-center gap-5 mt-5 col-10">
+  <div class="col-4">
+    <img src="{{pet.image.url}}" alt="" class="w-80">
+  </div>
+  <div class="col-6">
+    <h3>{{pet.name}}</h3>
+    
+    <p>{{pet.description}}</p>
+    
+    <h5>Price : {{pet.price}}</h5>
+    <h5>Categories: {% for cat in pet.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h5>
+
+    
+  </div>
+</div>
+</div>
+
+</div>
+
+
+{% endblock content %}

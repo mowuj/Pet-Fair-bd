@@ -4,10 +4,10 @@ from . models import Transaction
 
 
 class TransactionModelAdmin(admin.ModelAdmin):
-    list_display = ['customer',
+    list_display = ['customer_name','pet',
                     'amount', 'transaction_type', 'timestamps']
 
-    def customer(self, obj):
-        return obj.customer.user.first
+    def customer_name(self, obj):
+        return obj.customer.user.username
 
 admin.site.register(Transaction, TransactionModelAdmin)

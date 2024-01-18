@@ -18,7 +18,7 @@ admin.site.register(Pet,PetModelAdmin)
 
 
 class ReviewModelAdmin(admin.ModelAdmin):
-    list_display = ['reviewer', 'pet_name', 'rating', 'body', 'timestamps']
+    list_display = ['reviewer', 'pet', 'rating', 'body', 'timestamps']
 
     def reviewer(self, obj):
         return obj.user.username
