@@ -16,6 +16,15 @@ from django.template.loader import render_to_string
 # Create your views here.
 
 
+def send_transaction_email(user, amount, subject, template):
+    message = render_to_string(template, {
+        'user': user,
+        'amount': amount
+    })
+    send_email = EmailMultiAlternatives(subject, '', to=[user.email])
+    send_email.attach_alternative(message, "text/html")
+    send_email.send()
+
 class TransactionViewMixin(LoginRequiredMixin, CreateView):
     model = Transaction
     template_name = 'transaction/transaction.html'
@@ -54,6 +63,8 @@ class DepositView(TransactionViewMixin):
         )
         messages.success(self.request,
                          f'{"{:,.2f}".format(float(amount))}$ has ben successfully Deposit')
+        send_transaction_email(
+            self.request.user, amount, 'Deposit Message', 'transaction/deposit_mail.html')
         
         return super().form_valid(form)
 
@@ -95,5 +106,7 @@ class BuyPetView(TransactionViewMixin):
         )
         messages.success(self.request,
                          f'Welcome! You has ben successfully Buy this pet.Your current balance is ${customer.balance}')
+        send_transaction_email(
+            self.request.user, amount, 'Buy Message', 'transaction/buy_email.html')
         
         return super().form_valid(form)

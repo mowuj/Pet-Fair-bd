@@ -2,10 +2,12 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form action="" class="w-50 m-auto" method="post" enctype="multipart/form-data">
-    <h1 class="text-center my-4">Drop Your Pet Here </h1>
+<div class="my-5">
+    <form action="" class="w-50 m-auto" method="post" enctype="multipart/form-data">
+    <h1 class="text-center text-info my-4">Drop Your Pet Here </h1>
     {% csrf_token %}
     {{form | crispy}}
     <input class="btn btn-warning" type="submit" value="Submit">
 </form>
+</div>
 {% endblock content %}

@@ -74,13 +74,17 @@ class UserProfileView(LoginRequiredMixin, View):
         form = UserUpdateForm(instance=request.user)
         pets=Pet.objects.filter(user=request.user)
         customer = self.request.user.customer
+        transaction = Transaction.objects.filter(customer=self.request.user.customer)
+        total = transaction.aggregate(
+            total_price=Sum('amount')
+        )['total_price'] or 0
         buy = Transaction.objects.filter(
             transaction_type=BUY, customer=self.request.user.customer)
         total_buy_price = buy.aggregate(
             total_price=Sum('amount')
         )['total_price'] or 0
 
-        return render(request, self.template_name, {"form": form, "buy": buy, "total_borrowing_price": total_buy_price, 'customer': customer,"pets":pets})
+        return render(request, self.template_name, {"form": form, "buy": buy, "total_buy_price": total_buy_price, 'customer': customer, "pets": pets, "transaction": transaction,"total":total})
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):

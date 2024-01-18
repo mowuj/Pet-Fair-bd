@@ -2,6 +2,7 @@ from django import forms
 from .models import Pet,Review
 from .constants import RATING
 class PetForm(forms.ModelForm):
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}))
     class Meta:
         model=Pet
         exclude=['user']

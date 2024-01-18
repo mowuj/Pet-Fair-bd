@@ -24,7 +24,7 @@
     </div>
     <div class="profile-right col-md-9">
         <div class="add-pet">
-            <h1 class="text-center">My Sell Post</h1>
+            <h1 class="text-center my-4">My Sell Report</h1>
             <table class="table table-bordered">
   <thead>
     <tr>
@@ -62,7 +62,7 @@
         </div>
         <div class="buy-pet">
 
-          <h1 class="text-center">My Buying Report</h1>
+          <h1 class="text-center my-4">My Buying Report</h1>
             <table class="table table-bordered">
   <thead>
     <tr>
@@ -85,6 +85,42 @@
         <td><img class="rounded-circle" src="{{ i.pet.image.url }}" style="width: 70px;" alt=""></td>
       </tr>
     {% endfor %}
+    <tr>
+            <td colspan="3"></td>
+            <td><strong>Total Buying Price:</strong></td>
+            <td colspan="2"><b>${{ total_buy_price }}</b> </td>
+          </tr>
+  </tbody>
+</table>
+
+        </div>
+        <div class="transaction">
+
+          <h1 class="text-center my-4">Total Transaction Report</h1>
+            <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Type</th>
+      <th scope="col">Balance After Buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in transaction %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.amount}}</td>
+        <td>{{i.get_transaction_type_display}}</td>
+        <td>{{i.balance_after_transaction}}</td>
+        
+      </tr>
+    {% endfor %}
+    <tr>
+            <td colspan="2"></td>
+            <td><strong>Total Transaction:</strong></td>
+            <td colspan="2"><b>${{ total }}</b> </td>
+          </tr>
   </tbody>
 </table>
 

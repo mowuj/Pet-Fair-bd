@@ -35,9 +35,9 @@
                     <img src="{{i.image.url}}" class="card-img-top" loading="lazy" alt="...">
                 </div>
                 <div class="card-body  p-3 p-xl-5">
-                    <h3 class="card-title h5">{{i.name}}</h3>
-                    <p class="card-text">{{i.price}}</p>
-                    <a href="#" class="btn btn-primary">Details</a>
+                    <h3 class="card-title h5">Name: {{i.name}}</h3>
+                    <h5 class="card-text">Price: {{i.price}}</h5>
+                    <p class="card-text">{{i.description| truncatewords:4 }}</p>
                 </div>
             </div>
             </li>
