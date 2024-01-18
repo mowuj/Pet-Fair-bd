@@ -54,7 +54,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model=User
-        fields = ["username", "first_name", "last_name", "email"]
+        fields = ["first_name", "last_name"]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -80,7 +80,7 @@ class UserUpdateForm(forms.ModelForm):
             user.save()
             customer, created = Customer.objects.get_or_create(user=user)
 
-            customer.phone_no = self.cleaned_data.get("phone_no")
+            customer.phone = self.cleaned_data.get("phone")
             customer.gender = self.cleaned_data.get("gender")
             customer.street_address = self.cleaned_data.get("street_address")
             customer.city = self.cleaned_data.get("city")

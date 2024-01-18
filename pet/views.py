@@ -6,6 +6,8 @@ from django.views.generic import CreateView,UpdateView,DetailView,DeleteView
 from django.views import View
 from django.contrib import messages
 from transaction . models import Transaction
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 class AddPetView(CreateView):
@@ -78,3 +80,32 @@ class AllPetView(View):
         categories = Category.objects.all()
 
         return render(request, self.template_name, {'data': data, 'category': categories})
+
+
+class PetEditView(LoginRequiredMixin, View):
+    template_name = 'pet/edit_pet.html'
+    pk_url_kwarg = 'id'
+
+    def get(self, request, id):
+        pet_instance = get_object_or_404(Pet, id=id, user=request.user)
+        form = PetForm(instance=pet_instance)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, id):
+        pet_instance = get_object_or_404(Pet, id=id, user=request.user)
+        form = PetForm(request.POST, instance=pet_instance)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        return render(request, self.template_name, {'form': form})
+
+
+class PetDeleteView(LoginRequiredMixin, DeleteView):
+    model = Pet
+    template_name = 'pet/delete_pet.html'
+    success_url = reverse_lazy('profile')
+    pk_url_kwarg = 'id'
+
+    def get_queryset(self):
+        return Pet.objects.filter(user=self.request.user)
+

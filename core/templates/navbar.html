@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
         
         {% if request.user.is_authenticated %}
@@ -34,7 +34,7 @@
         </li>
           
           <li class="nav-item mx-3">
-          <a class="nav-link active btn btn-outline-warning text-dark" aria-current="page" href="">Profile</a>
+          <a class="nav-link active btn btn-outline-warning text-dark" aria-current="page" href="{% url 'profile' %}">Profile</a>
         </li>
           <li class="nav-item mx-3">
           <a class="nav-link active btn btn-outline-danger text-dark" aria-current="page" href="">Logout</a>

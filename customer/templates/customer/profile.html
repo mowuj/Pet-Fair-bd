@@ -2,8 +2,94 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
+<div class="container my-5">
     <h1 class="text-center text-info">Profile</h1>
+
+    <div class="d-flex">
+        <div class="profile-left col-md-3">
+        <div class="card" style="width: 18rem;">
+  <img src="{{customer.image.url}}" class="card-img-top rounded-circle" alt="...">
+  <div class="card-body">
+    <h3 class="card-title">{{customer}}</h3>
+    <h6 class="card-title">Full Name: {{customer.user.first_name}} {{customer.user.last_name}}</h6>
+    <h6 class="card-title">ID: {{customer.id}}</h6>
+    <h6 class="card-title">Phone{{customer.phone}}</h6>
+    <p class="card-title">Street: {{customer.street_address}}</p>
+    <p class="card-title">City: {{customer.city}}</p>
+    <p class="card-title">Country: {{customer.country}}</p>
     
+    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+  </div>
+</div>
+    </div>
+    <div class="profile-right col-md-9">
+        <div class="add-pet">
+            <h1 class="text-center">My Sell Post</h1>
+            <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Availability</th>
+      <th scope="col">Image</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for i in pets %}
+    <th scope="row">{{i.id}}</th>
+      <td>{{i.name}}</td>
+      <td>{% for category in i.category.all %}
+    {{ category.name }}
+    {% if not forloop.last %}, {% endif %}
+  {% endfor %}</td>
+      <td>{{i.price}}</td>
+      <td>{{i.availability}}</td>
+      <td><img class="rounded-circle" src="{{ i.image.url }}" style="width: 70px;" alt=""></td>
+      <td>
+        <a class="btn btn-warning" href="{% url 'edit_pet' i.id %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'pet_delete' i.id %}">Delete</a>
+      </td>
+      {% endfor %}
+    </tr>
+    
+    
+  </tbody>
+</table>
+        </div>
+        <div class="buy-pet">
+
+          <h1 class="text-center">My Buying Report</h1>
+            <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Type</th>
+      <th scope="col">Balance After Buy</th>
+      <th scope="col">Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in buy %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.pet.name}}</td>
+        <td>{{i.amount}}</td>
+        <td>{{i.get_transaction_type_display}}</td>
+        <td>{{i.balance_after_transaction}}</td>
+        <td><img class="rounded-circle" src="{{ i.pet.image.url }}" style="width: 70px;" alt=""></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+        </div>
+    </div>
+    </div>
 </div>
 {% endblock content %}
