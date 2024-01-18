@@ -6,9 +6,14 @@
 
 {% block content %}
   <div class="container m-auto" style="height: 100vh;">
-    <h1 class="text-center my-3">{{title}}</h1>
+    <h1 class="text-center text-info my-5">{{title}}</h1>
     
-<form action="" method="post" class="w-50 m-auto" novalidate>
+<div class="row d-flex justify-content-center align-items-center mt-5">
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card p-5 shadow-lg">
+      <div class="card-body">
+        <h5 class="card-title">
+          <form action="" method="post" class="w-75 m-auto" novalidate>
         <!-- {{form | crispy}} -->
         {% csrf_token %}
         {% if form.non_field_errors %}
@@ -25,6 +30,13 @@
         <br>
         <input class="btn btn-primary my-2" type="submit" value="Submit">
     </form>
+        </h5>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
   </div>
   
 {% endblock content %}

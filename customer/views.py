@@ -64,7 +64,7 @@ class UserLoginView(LoginView):
 
     def get_success_url(self):
         messages.success(self.request, "You are Successfully logged in ")
-        return reverse_lazy('login')
+        return reverse_lazy('profile')
 
 
 class UserProfileView(LoginRequiredMixin, View):

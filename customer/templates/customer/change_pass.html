@@ -6,9 +6,12 @@
 {% endblock title %}
 {% block content %}
 
-<div style="height: 100vh;">
+<div class="container" style="height: 100vh;">
+  <h1 class="text-center text-info my-5">Change Your Password Here</h1>
+<div class="col-8 m-auto shadow-lg p-5" >
+  
   <form action="" method="post" class="w-50 m-auto" novalidate>
-    <h1 class="text-center text-info my-5">Change Your Password Here</h1>
+    
         <!-- {{form | crispy}} -->
         {% csrf_token %}
         {% if form.non_field_errors %}
@@ -25,5 +28,6 @@
         <br>
         <input class="btn btn-primary my-2" type="submit" value="Submit">
     </form>
+</div>
 </div>
 {% endblock content %}
