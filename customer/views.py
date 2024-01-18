@@ -20,6 +20,10 @@ from django.utils.encoding import force_bytes
 from .models import Customer
 from django.contrib.auth.models import User
 from pet .models import Pet
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+
 class UserRegistrationView(FormView):
     template_name = 'customer/register.html'
     success_url = reverse_lazy('login')
@@ -59,6 +63,7 @@ def activate(request, uid64, token):
         return redirect('profile')
     else:
         return redirect('login')
+    
 class UserLoginView(LoginView):
     template_name='customer/login.html'
 
@@ -67,6 +72,7 @@ class UserLoginView(LoginView):
         return reverse_lazy('profile')
 
 
+@method_decorator(login_required, name='dispatch')
 class UserProfileView(LoginRequiredMixin, View):
     template_name = "customer/profile.html"
 
@@ -87,6 +93,7 @@ class UserProfileView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, "buy": buy, "total_buy_price": total_buy_price, 'customer': customer, "pets": pets, "transaction": transaction,"total":total})
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = 'customer/edit_profile.html'
 
@@ -102,6 +109,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
 
 
+@login_required
 def change_pass(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, data=request.POST)
@@ -125,6 +133,7 @@ def change_pass(request):
     return render(request, 'customer/change_pass.html', {'form': form})
 
 
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request, "Logout successfully")

@@ -8,8 +8,12 @@ from django.contrib import messages
 from transaction . models import Transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
+@method_decorator(login_required, name='dispatch')
 class AddPetView(CreateView):
     model=Pet
     form_class = PetForm
@@ -21,6 +25,7 @@ class AddPetView(CreateView):
         return super().form_valid(form)
     
 
+@method_decorator(login_required, name='dispatch')
 class PetDetailView(DetailView):
     model = Pet
     pk_url_kwarg = 'id'
@@ -67,6 +72,7 @@ class PetDetailView(DetailView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class AllPetView(View):
     template_name = 'pet/all_pets.html'
 
@@ -82,6 +88,7 @@ class AllPetView(View):
         return render(request, self.template_name, {'data': data, 'category': categories})
 
 
+@method_decorator(login_required, name='dispatch')
 class PetEditView(LoginRequiredMixin, View):
     template_name = 'pet/edit_pet.html'
     pk_url_kwarg = 'id'
@@ -100,6 +107,7 @@ class PetEditView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
 
 
+@method_decorator(login_required, name='dispatch')
 class PetDeleteView(LoginRequiredMixin, DeleteView):
     model = Pet
     template_name = 'pet/delete_pet.html'

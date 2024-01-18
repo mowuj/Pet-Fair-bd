@@ -12,6 +12,8 @@ from pet.models import Pet
 from django.db.models import Sum
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -25,6 +27,8 @@ def send_transaction_email(user, amount, subject, template):
     send_email.attach_alternative(message, "text/html")
     send_email.send()
 
+
+@method_decorator(login_required, name='dispatch')
 class TransactionViewMixin(LoginRequiredMixin, CreateView):
     model = Transaction
     template_name = 'transaction/transaction.html'
@@ -46,6 +50,7 @@ class TransactionViewMixin(LoginRequiredMixin, CreateView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class DepositView(TransactionViewMixin):
     form_class = DepositForm
     title = 'Deposit'
@@ -69,6 +74,7 @@ class DepositView(TransactionViewMixin):
         return super().form_valid(form)
 
 
+@method_decorator(login_required, name='dispatch')
 class BuyPetView(TransactionViewMixin):
     form_class = BuyPetForm
     title = 'Buy Pet'

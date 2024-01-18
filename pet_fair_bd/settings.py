@@ -18,8 +18,9 @@ SECRET_KEY = 'django-insecure-4g-c$)-g)*+vy$t8h3^dpm#!9a)@#7qy-gt5v7ewh8eax+#pqc
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://pet-fair-bd.onrender.com', 'https://*.127.0.0.1']
+LOGIN_URL = '/customer/login'
 # Application definition
 
 INSTALLED_APPS = [
