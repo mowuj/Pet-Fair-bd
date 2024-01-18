@@ -12,7 +12,7 @@
         
         {% if request.user.is_authenticated %}
           <li class="nav-item mx-3">
-          <a class="nav-link active" aria-current="page" href="">Deposit</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'deposit' %}">Deposit</a>
         </li>
           <li class="nav-item mx-3">
           <a class="nav-link active" aria-current="page" href="{% url 'add_pet' %}">Add Pet</a>

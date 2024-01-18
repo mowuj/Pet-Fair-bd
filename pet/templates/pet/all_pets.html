@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Our Pets</title>
+{% endblock title %}
+{% block content %}
+
+
+<div class=" d-flex justify-content-center align-items-center gap-4 mt-5">
+  <h3 class="text-center">Categories</h3>
+    {% for i in category %}
+    <a class="btn btn-warning text-decoration-none text-white" href="{% url 'category' i.slug %}" >{{i.name}}</a>
+    {% endfor %}
+    
+</div>
+
+<div class=" p-3">
+    <h4 class="text-center">Total Data Found : {{data | length}}</h4>
+    <div class="d-flex flex-wrap px-5 my-5">
+  {% for i in data %}
+    <div class="col-sm-3 mb-3 mb-sm-0">
+    <div class="card mx-3">
+      <div class="card-body">
+        <img src="{{i.image.url}}" class="card-img-top img-fluid" style="height: 14rem;" alt="...">
+        <h4 class="card-title mt-2"><a href="" class="text-decoration-none text-dark">{{i.name}}</a></h4>
+        <h5 class="card-text">Price: {{i.price}}</h5>
+
+        
+    <h6 class="card-text">Categories: {% for cat in i.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h6>
+    
+        <p class="card-text">{{i.description | truncatewords:10}}</p>
+            <a class="btn btn-primary btn-sm my-2" href="{% url 'pet_detail' i.id%}">View Detail</a>
+        
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+  </div>
+{% endblock content %}

@@ -12,7 +12,8 @@ from django.contrib.auth import logout, update_session_auth_hash
 from django.db.models import Sum
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
-
+from transaction.models import Transaction
+from transaction.constants import BUY
 
 class UserRegistrationView(FormView):
     template_name='customer/register.html'
@@ -32,3 +33,18 @@ class UserLoginView(LoginView):
     def get_success_url(self):
         messages.success(self.request, "You are Successfully logged in ")
         return reverse_lazy('login')
+
+
+class UserProfileView(LoginRequiredMixin, View):
+    template_name = "customer/profile.html"
+
+    def get(self, request):
+        form = UserUpdateForm(instance=request.user)
+        customer = self.request.user.customer
+        buy = Transaction.objects.filter(
+            transaction_type=BUY, customer=self.request.user.customer)
+        total_buy_price = buy.aggregate(
+            total_price=Sum('amount')
+        )['total_price'] or 0
+
+        return render(request, self.template_name, {"form": form, "buy": buy, "total_borrowing_price": total_buy_price, 'customer': customer})
