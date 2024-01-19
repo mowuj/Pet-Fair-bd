@@ -28,7 +28,11 @@
 
         
     <h6 class="card-text">Categories: {% for cat in i.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h6>
-    
+    <h6 class="card-text">{% if i.availability %}
+        Availability: Available
+    {% else %}
+        Availability: Not Available
+    {% endif %}</h6>
         <p class="card-text">{{i.description | truncatewords:10}}</p>
             <a class="btn btn-primary btn-sm my-2" href="{% url 'pet_detail' i.id%}">View Detail</a>
         

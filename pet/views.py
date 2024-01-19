@@ -33,25 +33,30 @@ class PetDetailView(DetailView):
     context_object_name = 'pet'
 
     def post(self, request, *args, **kwargs):
-        pet = self.get_object()
+        # Use get_object() to set self.object
+        self.object = self.get_object()
+
         review_form = ReviewForm(data=request.POST)
 
         if review_form.is_valid():
             is_buy = Transaction.objects.filter(
-                pet=pet, customer=self.request.user.customer).exists()
-            if is_buy==False:
+                pet=self.object, customer=self.request.user.customer).exists()
+
+            if not is_buy:
                 messages.info(
-                    request, "You can Review only after buy this pet.")
-                return redirect("profile")
+                    request, "You can review only after buying this pet.")
+                return redirect('pet_detail', id=self.object.id)
+
             is_already_reviewed = Review.objects.filter(
-                pet=pet, user=request.user).exists()
+                pet=self.object, user=request.user).exists()
 
             if is_already_reviewed:
-                messages.info(request, "You have already reviewed for this pet.")
-                return redirect('pet_detail', id=pet.id)
+                messages.info(
+                    request, "You have already reviewed for this pet.")
+                return redirect('pet_detail', id=self.object.id)
 
             new_review = review_form.save(commit=False)
-            new_review.pet = pet
+            new_review.pet = self.object
             new_review.user = request.user
             new_review.save()
 
@@ -63,14 +68,12 @@ class PetDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pet = self.get_object()
-        review = pet.reviews.all()
+        review = self.object.reviews.all()
         review_form = ReviewForm()
 
         context['review'] = review
         context['review_form'] = review_form
         return context
-
 
 @method_decorator(login_required, name='dispatch')
 class AllPetView(View):
