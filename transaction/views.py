@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-
+from django.urls import reverse
 # Create your views here.
 
 
@@ -110,9 +110,11 @@ class BuyPetView(TransactionViewMixin):
         customer.save(
             update_fields=['balance']
         )
+        pet_detail_url = reverse('pet_detail', kwargs={'id': pet.id})
         messages.success(self.request,
                          f'Welcome! You has ben successfully Buy this pet.Your current balance is ${customer.balance}')
         send_transaction_email(
             self.request.user, amount, 'Buy Message', 'transaction/buy_email.html')
         
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        return redirect(pet_detail_url)

@@ -48,7 +48,7 @@ class PetDetailView(DetailView):
 
             if is_already_reviewed:
                 messages.info(request, "You have already reviewed for this pet.")
-                return redirect("profile")
+                return redirect('pet_detail', id=pet.id)
 
             new_review = review_form.save(commit=False)
             new_review.pet = pet
