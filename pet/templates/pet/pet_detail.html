@@ -16,14 +16,26 @@
     <h3>Name: {{pet.name}}</h3>
 
     <h5>Price : {{pet.price}}</h5>
+    <h5>
+    {% if pet.availability %}
+        Availability: Available
+    {% else %}
+        Availability: Not Available
+    {% endif %}
+</h5>
     <h5>Categories: {% for cat in pet.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h5>
     
     <h6>Total Review: {{ review | length }}</h6>
     <p>{{pet.description}}</p>
-    <form action="{% url 'buy_pet' pet.id %}" method="post">
+    {% if pet.availability %}
+        <form action="{% url 'buy_pet' pet.id %}" method="post">
   {% csrf_token %}
   <input type="submit" class="btn btn-warning" value="Adopt Now">
 </form>
+    {% else %}
+        
+    {% endif %}
+    
 </form>
     
   </div>

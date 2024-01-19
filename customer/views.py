@@ -62,7 +62,7 @@ def activate(request, uid64, token):
         user.save()
         return redirect('profile')
     else:
-        return redirect('login')
+        return redirect('profile')
     
 class UserLoginView(LoginView):
     template_name='customer/login.html'
