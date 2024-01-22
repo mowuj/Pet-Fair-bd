@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Admin Home</title>
+{% endblock title %}
+{% block content %}
+{% load humanize %}
+<section class="container" style="height: 100vh;">
+  <button id="toggleAddPet" class="btn btn-primary mt-4 mx-5">Toggle All Pets</button>
+    <div id="all-pet" class="all-pet" style="display: none;">
+      
+            <h1 class="text-center my-4">Total Pets : {{pets |length}}</h1>
+           <table class="table table-bordered">
+  <thead>
+    <tr>  
+      <th scope="col">ID</th>
+      <th scope="col">Photo</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Availability</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in pets %}
+    <tr>
+      <th scope="row">{{i.id}}</th>
+      <td><a href="{% url 'edit_pet' i.id %}"><img class="rounded-circle" src="{{ i.image.url }}" style="width: 70px; height: 50px;" alt=""></a></td>
+      <td>{{i.name}}</td>
+      <td>
+        {% for category in i.category.all %}
+          {{ category.name }}
+          {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{i.price}}</td>
+      <td>{{i.availability}}</td>
+      
+      <td>
+        <a class="btn btn-danger" href="{% url 'pet_delete' i.id %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+        </div>
+
+    <!-- transaction  -->
+
+<!-- Report  -->
+
+
+<div class=" my-5">
+  <h1 class="text-center pb-4">Transaction Report</h1>
+  <hr />
+
+  <form method="post" action="{% url 'admin_home' %}" class="d-flex justify-content-center mb-4">
+    {% csrf_token %}
+    <div class="input-group">
+        <label for="start_date" class="input-group-text">From:</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" />
+    </div>
+
+    <div class="input-group mx-2">
+        <label for="end_date" class="input-group-text">To:</label>
+        <input type="date" class="form-control" id="end_date" name="end_date" />
+    </div>
+
+    <div class="">
+        <button type="submit" class="btn btn-primary  px-4 fs-4">Filter</button>
+    </div>
+  </form>
+
+  <table class="table table-bordered table-hover">
+    <thead class="text-white text-center">
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+        <th>Balance After Transaction</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in object_list %}
+      <tr>
+        <td>{{transaction.id}}</td>
+        <td>{{ transaction.timestamps|date:"F d, Y h:i A" }}</td>
+        <td>{{ transaction.customer.user.username }}</td>
+        <td class="text-center">
+          <span class="badge bg-success">
+            {{ transaction.get_transaction_type_display }}
+          </span>
+        </td>
+        <td class="text-center">${{ transaction.amount|floatformat:2|intcomma }}</td>
+        <td class="text-center">${{ transaction.balance_after_transaction|floatformat:2|intcomma }}</td>
+      </tr>
+      {% endfor %}
+      <tr class="bg-dark text-white text-end">
+        <th colspan="5">Total Transaction :</th>
+        <th class="text-center">${{ total|floatformat:2|intcomma }}</th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    </div>
+
+</section>
+    <script>
+    document.getElementById('toggleAddPet').addEventListener('click', function () {
+        var allPetDiv = document.getElementById('all-pet');
+        allPetDiv.style.display = (allPetDiv.style.display === 'none') ? 'block' : 'none';
+    });
+</script>
+{% endblock content %}

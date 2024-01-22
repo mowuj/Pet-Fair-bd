@@ -21,8 +21,9 @@ from .models import Customer
 from django.contrib.auth.models import User
 from pet .models import Pet
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.decorators import login_required, user_passes_test
+from datetime import datetime
+from django.utils.decorators import method_decorator
 
 class UserRegistrationView(FormView):
     template_name = 'customer/register.html'
@@ -31,7 +32,7 @@ class UserRegistrationView(FormView):
 
     def form_valid(self, form):
         user = form.save()
-
+        
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         confirm_link = f"http://127.0.0.1:8000/customer/active/{uid}/{token}"
@@ -68,8 +69,63 @@ class UserLoginView(LoginView):
     template_name='customer/login.html'
 
     def get_success_url(self):
-        messages.success(self.request, "You are Successfully logged in ")
+        if self.request.user.is_staff:
+            messages.success(self.request, "Welcome Admin ")
+            return reverse_lazy('admin_home')
+        else:
+            messages.success(self.request, "Welcome! You are successfully logged in.")
         return reverse_lazy('profile')
+
+
+def user_is_admin(user):
+    return user.is_authenticated and user.is_staff
+
+
+@method_decorator(login_required(login_url='/customer/login'), name='dispatch')
+@method_decorator(user_passes_test(user_is_admin, login_url='/customer/login'), name='dispatch')
+class AdminHomeView(View):
+    template_name = 'customer/admin_home.html'
+
+    def get_queryset(self):
+        queryset = Transaction.objects.all()
+        self.balance = queryset.aggregate(Sum('amount'))['amount__sum']
+        self.total = queryset.aggregate(Sum('amount'))['amount__sum'] or 0
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        pets = Pet.objects.all()
+        context = {
+            'object_list': self.get_queryset(),
+            'balance': self.balance,
+            'total': self.total,
+            'pets':pets,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        start_date_str = request.POST.get('start_date')
+        end_date_str = request.POST.get('end_date')
+
+        if start_date_str and end_date_str:
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+
+            queryset = Transaction.objects.filter(
+                timestamps__date__gte=start_date,
+                timestamps__date__lte=end_date
+            )
+            self.balance = queryset.aggregate(Sum('amount'))['amount__sum']
+            self.total = queryset.aggregate(Sum('amount'))['amount__sum'] or 0
+
+            context = {
+                'object_list': queryset,
+                'balance': self.balance,
+                'total': self.total,
+            }
+
+            return render(request, self.template_name, context)
+
+        return redirect('admin_home')
 
 
 @method_decorator(login_required, name='dispatch')
