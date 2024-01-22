@@ -51,7 +51,7 @@
     <h1 class="text-center mb-4 text-info"><button id="toggleAddPet" class="btn btn-primary mt-4 mx-5 fs-3">Show Reviews : {{ review | length }}</button></h1>
     <div  id="pet_review" style="display: none;">
       {% for review_item in review %}
-    <div class="card mb-3" style="width: 18rem;">
+    <div class="card mb-3 shadow-lg" style="width: 18rem;">
       
   <div class="card-body">
     <h5 class="card-title">By: {{ review_item.user.username }}  </h5>
