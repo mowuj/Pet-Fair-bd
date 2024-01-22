@@ -1,68 +1,128 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% block title %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block title %}
 <title>Registration</title>
-{% endblock title %}
+{% endblock title %} {% block content %}
 
-{% block content %}
-<div class="container h-100">
-    <div class="col-md-6 mx-auto badge-info text-center p-2 badge-pill ">
-        <h1 class="text-center text-info my-5">User Registration Form</h1>
-    </div>
-    <hr>
-    {% if form.non_field_errors %}
-          {% for er in form.non_field_errors %}
-          <p class="bg-danger text-white p-3">{{er}}</p>
-          {% endfor %}
-        {% endif %}
+
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
+{% endif %}
+<div class="container my-5">
+    <h1 class="text-center my-5">User Registration Form</h1>
     <div class="row">
         <div class="col-md-10 mx-auto my-4">
             <form class="row g-4 shadow-lg p-5 rounded-5" method="POST" enctype="multipart/form-data">
+                <!-- {{form | crispy}} -->
                 {% csrf_token %}
-                <div class="col-md-6">            
-                    {{form.username|as_crispy_field}}
-
-                </div>
-                <div class="col-md-6">
-                    {{form.first_name|as_crispy_field}}
-                </div>
-                <div class="col-md-6">
-                    {{form.last_name|as_crispy_field}}
-                </div>
-                
-                <div class="col-md-6">
-                    {{form.email|as_crispy_field}}
-                </div>
-                <div class="col-md-6">
-                    {{form.password1|as_crispy_field}}
-                </div>
-                <div class="col-md-6">
-                    {{form.password2|as_crispy_field}}
-                </div>
 
                 <div class="col-md-6">
-                    {{form.phone|as_crispy_field}}
-                </div>
-                <div class="col-md-6">
-                    {{form.gender|as_crispy_field}}
-                </div>
-                <div class="col-md-6">
-                    {{form.street_address|as_crispy_field}}
-                </div>
-                <div class="col-md-6">
-                    {{form.city|as_crispy_field}}
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                        {{ form.username }}
+                        {% if form.username.errors %} {% for error in form.username.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %} {% for error in form.first_name.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %} {% for error in form.last_name.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %} {% for error in form.email.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %} {% for error in form.password1.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %} {% for error in form.password2.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
                 </div>
 
-                <div class="col-md-6">  
-                    {{form.country|as_crispy_field}}
+                <div class="col-md-6">
+                    
+
+                    <div class="mb-3">
+                        <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %} {% for error in form.phone.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.gender.id_for_label }}" class="form-label">Gender</label>
+                        {{ form.gender }}
+                        {% if form.gender.errors %} {% for error in form.gender.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.street_address.id_for_label }}" class="form-label">Street Address</label>
+                        {{ form.street_address }}
+                        {% if form.street_address.errors %} {% for error in form.street_address.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.city.id_for_label }}" class="form-label">City</label>
+                        {{ form.city }}
+                        {% if form.city.errors %} {% for error in form.city.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.country.id_for_label }}" class="form-label">Country</label>
+                        {{ form.country }}
+                        {% if form.country.errors %} {% for error in form.country.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.image.id_for_label }}" class="form-label">Image</label>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="{{ form.image.name }}" />
+                            {% if form.image.value %}
+                                <img src="{{ form.image.value.url }}" alt="Current Image" class="img-fluid rounded mt-2" style="max-height: 150px;">
+                            {% endif %}
+                        </div>
+                        {% if form.image.errors %} {% for error in form.image.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %} {% endif %}
+                    </div>
                 </div>
-                <div class="col-md-6">  
-                    {{form.image|as_crispy_field}}
-                </div>
-                
-            
-                <div class="col-md-12 my-3 ">
-            
+
+                <div class="col-md-12 my-3">
                     <div class="d-grid gap-2 col-4 mx-auto d-block">
                         <button class="btn btn-primary" type="submit">Submit</button>
                         <button class="btn btn-primary" type="reset">Reset</button>
@@ -70,10 +130,9 @@
                 </div>
             </form>
         </div>
-        
     </div>
-
 </div>
+
 
 
 {% endblock content %}

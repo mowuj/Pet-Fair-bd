@@ -5,6 +5,7 @@
 <title>Profile</title>
 {% endblock title %}
 {% block content %}
+{% load humanize %}
 <div class="my-5 mx-4">
     <h1 class="text-center text-info">Profile</h1>
 
@@ -27,7 +28,10 @@
 </div>
     </div>
     <div class="profile-right col-md-9">
-        <div class="add-pet">
+      <button id="toggleSellPet" class="btn btn-primary mt-4 mx-2 active">Sell Pet</button>
+            <button id="toggleBuyPet" class="btn btn-secondary mt-4 mx-2">Buy Pet</button>
+            <button id="toggleTransaction" class="btn btn-info mt-4 mx-2">Transaction</button>
+        <div class="sell-pet" id="sellPetSection">
             <h1 class="text-center my-4">My Sell Report</h1>
             <table class="table table-bordered">
   <thead>
@@ -52,7 +56,7 @@
   {% endfor %}</td>
       <td>{{i.price}}</td>
       <td>{{i.availability}}</td>
-      <td><img class="rounded-circle" src="{{ i.image.url }}" style="width: 70px;" alt=""></td>
+      <td><img class="rounded-circle" src="{{ i.image.url }}" style="width: 60px; height: 45px;" alt=""></td>
       <td>
         <a class="btn btn-warning" href="{% url 'edit_pet' i.id %}">Edit</a>
         <a class="btn btn-danger" href="{% url 'pet_delete' i.id %}">Delete</a>
@@ -64,7 +68,7 @@
   </tbody>
 </table>
         </div>
-        <div class="buy-pet">
+        <div class="buy-pet" id="buyPetSection" style="display: none;">
 
           <h1 class="text-center my-4">My Buying Report</h1>
             <table class="table table-bordered">
@@ -86,19 +90,19 @@
         <td>{{i.amount}}</td>
         <td>{{i.get_transaction_type_display}}</td>
         <td>{{i.balance_after_transaction}}</td>
-        <td><img class="rounded-circle" src="{{ i.pet.image.url }}" style="width: 70px;" alt=""></td>
+        <td><img class="rounded-circle" src="{{ i.pet.image.url }}" style="width: 60px; height: 45px;" alt=""></td>
       </tr>
     {% endfor %}
     <tr>
             <td colspan="3"></td>
             <td><strong>Total Buying Price:</strong></td>
-            <td colspan="2"><b>${{ total_buy_price }}</b> </td>
+            <td colspan="2"><b>${{ total_buy_price|floatformat:2|intcomma }}</b> </td>
           </tr>
   </tbody>
 </table>
 
         </div>
-        <div class="transaction">
+        <div class="transaction" id="transactionSection" style="display: none;">
 
           <h1 class="text-center my-4">Total Transaction Report</h1>
             <table class="table table-bordered">
@@ -125,7 +129,7 @@
     <tr>
             <td colspan="2"></td>
             <td><strong>Total Transaction:</strong></td>
-            <td colspan="2"><b>${{ total }}</b> </td>
+            <td colspan="2"><b>${{ total|floatformat:2|intcomma }}</b> </td>
           </tr>
   </tbody>
 </table>
@@ -134,4 +138,24 @@
     </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('toggleSellPet').addEventListener('click', function () {
+        document.getElementById('sellPetSection').style.display = 'block';
+        document.getElementById('buyPetSection').style.display = 'none';
+        document.getElementById('transactionSection').style.display = 'none';
+    });
+
+    document.getElementById('toggleBuyPet').addEventListener('click', function () {
+        document.getElementById('sellPetSection').style.display = 'none';
+        document.getElementById('buyPetSection').style.display = 'block';
+        document.getElementById('transactionSection').style.display = 'none';
+    });
+
+    document.getElementById('toggleTransaction').addEventListener('click', function () {
+        document.getElementById('sellPetSection').style.display = 'none';
+        document.getElementById('buyPetSection').style.display = 'none';
+        document.getElementById('transactionSection').style.display = 'block';
+    });
+</script>
 {% endblock content %}

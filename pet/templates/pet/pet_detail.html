@@ -10,7 +10,11 @@
 <div class="rows">
   <div class="d-flex justify-content-center align-items-center gap-5 mt-5 col-10 m-auto">
   <div class="col-6">
-    <img src="{{pet.image.url}}" alt="" class="w-80">
+    <div class="card shadow-lg rounded-5 p-4" style="width: 24rem;">
+  <img src="{{pet.image.url}}" class="card-img-top img-fluid" alt="...">
+  
+</div>
+
   </div>
   <div class="col-6">
     <h3>Name: {{pet.name}}</h3>
@@ -43,32 +47,38 @@
 </div>
 <div class="row mt-5">
   <div class="col-6">
-    <div class="card">
+    
+    <h1 class="text-center mb-4 text-info"><button id="toggleAddPet" class="btn btn-primary mt-4 mx-5 fs-3">Show Reviews : {{ review | length }}</button></h1>
+    <div  id="pet_review" style="display: none;">
+      {% for review_item in review %}
+    <div class="card mb-3" style="width: 18rem;">
+      
   <div class="card-body">
-    <h4 class="card-title text-center">Reviews</h4>
-    {% for review_item in review %}
-      <div class="border-bottom py-3">
-        <div class="mb-2">
-          <h5 class="m-0 fw-bold">By: {{ review_item.user.username }} <small class="fw-normal">({{ review_item.timestamps|date:"d M Y h:i A" }})</small> </h5>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-          <p class="m-0 me-2 fw-bold">Rating:</p>
-          <div class="star-rating">
-            {% for _ in "x"|ljust:review_item.rating|slice:":5" %}
+    <h5 class="card-title">By: {{ review_item.user.username }}  </h5>
+    <small class="fw-normal">({{ review_item.timestamps|date:"d M Y h:i A" }})</small>
+    
+      <div class="star-rating">
+            <p class="card-text">Rating:{% for _ in "x"|ljust:review_item.rating|slice:":5" %}
               <i class="fa fa-star" style="color: gold;"></i>
             {% endfor %}
+            </p>
           </div>
-        </div>
-        <p class="m-0">{{ review_item.body }}</p>
-      </div>
-    {% endfor %}
+    
+    
   </div>
 </div>
+{% endfor %}
+
+    </div>
   </div>
 
+
   <div class="col-6 mb-5">
-    <h1 class="text-center my-4">Review This pet</h1>
-    <div class="card">
+    <h1 class="text-center text-info my-4">Review This pet</h1>
+    
+<div class="row d-flex justify-content-center align-items-center mt-5">
+  <div class="col-sm-8 mb-3 mb-sm-0">
+    <div class="card p-5 shadow-lg rounded-5">
       <div class="card-body">
         
         <form action="" class="w-100" method="post">
@@ -81,11 +91,22 @@
             </div>
         </form>
       </div>
+      </div>
     </div>
   </div>
 </div>
 
+  </div>
+
+
 </div>
 
+</div>
 
+<script>
+    document.getElementById('toggleAddPet').addEventListener('click', function () {
+        var reviewPetDiv = document.getElementById('pet_review');
+        reviewPetDiv.style.display = (reviewPetDiv.style.display === 'none') ? 'block' : 'none';
+    });
+</script>
 {% endblock content %}
