@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .filters import PetFilter
+from django.db.models import Q
 # Create your views here.
 
 
@@ -87,11 +87,19 @@ class AllPetView(View):
         if category_slug is not None:
             category = Category.objects.get(slug=category_slug)
             data = Pet.objects.filter(category=category)
-            
-        myfilter = PetFilter(request.GET, queryset=data)
+        
+        search_query = request.GET.get('search', '')
+        if search_query:
+            data = data.filter(
+                Q(name__icontains=search_query) | Q(
+                    description__icontains=search_query)| Q(
+                    category__name__icontains=search_query)
+            )
+
+        
         categories = Category.objects.all()
 
-        return render(request, self.template_name, {'data': data, 'category': categories, 'filter': myfilter})
+        return render(request, self.template_name, {'data': data, 'category': categories})
 
 
 @method_decorator(login_required, name='dispatch')

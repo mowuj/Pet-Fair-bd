@@ -7,16 +7,7 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-10 m-auto">
-            <form action="" method="get" class="col-md-12 mb-2 card card-body">
-                <div class="text-center">
-                    {{ filter.form }}
-                    <button type="submit" class="btn btn-primary badge-pill">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    
 
     <div class="d-flex justify-content-center align-items-center gap-4 mt-5">
         <h3 class="text-center">Categories</h3>
@@ -25,10 +16,10 @@
         {% endfor %}
     </div>
 
-    <h3 class="text-center mb-5">Total Data Found: {{ filter.qs.count }}</h3>
+    <h3 class="text-center mb-5">Total Data Found: {{ data | length }}</h3>
 
     <div class="row justify-content-center">
-        {% for i in filter.qs %}
+        {% for i in data %}
             <div class="col-sm-3 mb-3">
                 <div class="card mx-3 shadow-lg rounded-5 mb-4">
                     <div class="card-body">
