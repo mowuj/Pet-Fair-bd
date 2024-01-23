@@ -8,5 +8,5 @@ urlpatterns = [
     path('admin/', AdminHomeView.as_view(), name='admin_home'),
     path('change_pass/', change_pass, name='change_pass'),
     path('edit_profile/', ProfileUpdateView.as_view(), name='edit_profile'),
-    path('active/<uid64>/<token>/',activate, name='activate'),
+    path('active/<uid64>/<token>/', activate, name='activate'),
 ]

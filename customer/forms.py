@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Customer
+from .models import Customer,Contact
 from django.contrib.auth.forms import UserCreationForm
 from .constants import GENDER
 
@@ -89,3 +89,11 @@ class UserUpdateForm(forms.ModelForm):
             customer.save()
 
         return user
+
+
+class ContactForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}))
+
+    class Meta:
+        model = Contact
+        fields=['name','email','content']

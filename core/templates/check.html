@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="my-5">
+    <h1 class="text-center text-info my-5"> Here </h1>
+    <form action="" class="w-50 m-auto shadow-lg p-5 mb-5" method="post" enctype="multipart/form-data">
+    
+    {% csrf_token %}
+    {{form | crispy}}
+    <input class="btn btn-warning" type="submit" value="Submit">
+</form>
+</div>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistrationForm, UserUpdateForm
+from .forms import UserRegistrationForm, UserUpdateForm,ContactForm
 from django.views.generic import FormView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -17,13 +17,14 @@ from transaction.constants import BUY
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
-from .models import Customer
+from .models import Customer,Contact
 from django.contrib.auth.models import User
 from pet .models import Pet
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime
 from django.utils.decorators import method_decorator
+from django.views.generic import CreateView
 
 class UserRegistrationView(FormView):
     template_name = 'customer/register.html'
@@ -35,7 +36,7 @@ class UserRegistrationView(FormView):
         
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        confirm_link = f"https://pet-fair-bd.onrender.com/customer/active/{uid}/{token}"
+        confirm_link = f"http://127.0.0.1:8000/customer/active/{uid}/{token}"
         email_subject="Confirm Your Email"
         email_body=render_to_string('customer/confirm_mail.html',{'confirm_link':confirm_link})
         email=EmailMultiAlternatives(email_subject,'',to=[user.email])
@@ -55,15 +56,17 @@ def activate(request, uid64, token):
     try:
         uid = urlsafe_base64_decode(uid64).decode()
         user = User._default_manager.get(pk=int(uid))
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
+        print(f"Activation Error: {e}")
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
+        login(request, user)
         return redirect('profile')
     else:
-        return redirect('profile')
+        return redirect('register')
     
 class UserLoginView(LoginView):
     template_name='customer/login.html'
@@ -194,3 +197,6 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logout successfully")
     return redirect('login')
+
+
+

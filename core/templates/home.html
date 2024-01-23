@@ -5,9 +5,9 @@
 <title>Home</title>
 {% endblock title %}
 {% block content %}
-
+{% load crispy_forms_tags %}
 <!-- banner section  -->
-<div class="container d-flex justify-content-center align-items-center h-100 p-5 mt-5 gap-4 shadow-lg rounded-5" style="height: 100vh; background-color: rgb(195, 236, 236);">
+<div class="container d-md-flex justify-content-center align-items-center h-100 p-5 mt-5 gap-4 shadow-lg rounded-5" style="height: 100vh; background-color: rgb(195, 236, 236);">
     <div class="banner-left col-md-6 p-3">
         <h1 class="text-danger">Pick Your Favourite <br> Pets From Us..</h1>
         <p>Are you a animal lover.we are waiting for you.we have a big collection pets for you.we provide service sell an buy animal with  health treatment.so don not worry come and see our warehouse and sell and buy pet with you limits. Stay with us.Thank you</p>
@@ -105,14 +105,12 @@
 <!-- contact us section  -->
 <div class="contact-container my-5">
     <h1 class="text-center my-5 text-info">Contact Us</h1>
-    <div class="w-50 mx-auto">
-    <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Your Email</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter your Email">
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Your Comments</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Your Comments"></textarea>
+    <form action="" class="w-50 m-auto shadow-lg p-5 mb-5" method="post" enctype="multipart/form-data">
+    
+    {% csrf_token %}
+    {{form | crispy}}
+    <input class="btn btn-warning" type="submit" value="Submit">
+</form>
 </div>
 </div>
 </div>

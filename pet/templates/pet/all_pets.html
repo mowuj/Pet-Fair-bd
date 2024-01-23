@@ -4,42 +4,52 @@
 {% block title %}
 <title>Our Pets</title>
 {% endblock title %}
+
 {% block content %}
-
-
-<div class=" d-flex justify-content-center align-items-center gap-4 mt-5">
-  <h3 class="text-center">Categories</h3>
-    {% for i in category %}
-    <a class="btn btn-warning text-decoration-none text-white" href="{% url 'category' i.slug %}" >{{i.name}}</a>
-    {% endfor %}
-    
-</div>
-
-<div class=" p-3>
-    <h1 class="text-center">Total Data Found : {{data | length}}</h1>
-    <div class="d-flex flex-wrap px-5 my-5">
-  {% for i in data %}
-    <div class="col-sm-3 mb-3 mb-sm-0">
-    <div class="card mx-3  shadow-lg rounded-5 mb-4">
-      <div class="card-body">
-        <img src="{{i.image.url}}" class="card-img-top img-fluid" style="height: 14rem;" alt="...">
-        <h4 class="card-title mt-2"><a href="" class="text-decoration-none text-dark">{{i.name}}</a></h4>
-        <h5 class="card-text">Price: {{i.price}}</h5>
-
-        
-    <h6 class="card-text">Categories: {% for cat in i.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h6>
-    <h6 class="card-text">{% if i.availability %}
-        Availability: Available
-    {% else %}
-        Availability: Not Available
-    {% endif %}</h6>
-        <p class="card-text">{{i.description | truncatewords:10}}</p>
-            <a class="btn btn-primary btn-sm my-2" href="{% url 'pet_detail' i.id%}">View Detail</a>
-        
-      </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 m-auto">
+            <form action="" method="get" class="col-md-12 mb-2 card card-body">
+                <div class="text-center">
+                    {{ filter.form }}
+                    <button type="submit" class="btn btn-primary badge-pill">Search</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
-  {% endfor %}
+
+    <div class="d-flex justify-content-center align-items-center gap-4 mt-5">
+        <h3 class="text-center">Categories</h3>
+        {% for i in category %}
+            <a class="btn btn-warning text-decoration-none text-white" href="{% url 'category' i.slug %}">{{ i.name }}</a>
+        {% endfor %}
+    </div>
+
+    <h3 class="text-center mb-5">Total Data Found: {{ filter.qs.count }}</h3>
+
+    <div class="row justify-content-center">
+        {% for i in filter.qs %}
+            <div class="col-sm-3 mb-3">
+                <div class="card mx-3 shadow-lg rounded-5 mb-4">
+                    <div class="card-body">
+                        <img src="{{ i.image.url }}" class="card-img-top img-fluid" style="height: 14rem;" alt="...">
+                        <h4 class="card-title mt-2"><a href="" class="text-decoration-none text-dark">{{ i.name }}</a></h4>
+                        <h5 class="card-text">Price: {{ i.price }}</h5>
+
+                        <h6 class="card-text">Categories: {% for cat in i.category.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</h6>
+                        <h6 class="card-text">
+                            {% if i.availability %}
+                                Availability: Available
+                            {% else %}
+                                Availability: Not Available
+                            {% endif %}
+                        </h6>
+                        <p class="card-text">{{ i.description | truncatewords:10 }}</p>
+                        <a class="btn btn-primary btn-sm my-2" href="{% url 'pet_detail' i.id %}">View Detail</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-  </div>
 {% endblock content %}

@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from .filters import PetFilter
 # Create your views here.
 
 
@@ -17,8 +18,8 @@ from django.contrib.auth.decorators import login_required
 class AddPetView(CreateView):
     model=Pet
     form_class = PetForm
-    template_name='pet/add_pet.html'
-    success_url=reverse_lazy('add_pet')
+    template_name='home.html'
+    success_url = reverse_lazy('all_pets')
 
     def form_valid(self, form):
         form.instance.user=self.request.user
@@ -80,15 +81,17 @@ class AllPetView(View):
     template_name = 'pet/all_pets.html'
 
     def get(self, request, category_slug=None):
+        
         data = Pet.objects.all()
-
+        
         if category_slug is not None:
             category = Category.objects.get(slug=category_slug)
             data = Pet.objects.filter(category=category)
-
+            
+        myfilter = PetFilter(request.GET, queryset=data)
         categories = Category.objects.all()
 
-        return render(request, self.template_name, {'data': data, 'category': categories})
+        return render(request, self.template_name, {'data': data, 'category': categories, 'filter': myfilter})
 
 
 @method_decorator(login_required, name='dispatch')

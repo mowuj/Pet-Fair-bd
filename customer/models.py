@@ -15,3 +15,12 @@ class Customer(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class Contact(models.Model):
+    name=models.CharField(max_length=50)
+    email=models.EmailField()
+    content = models.TextField()
+
+    def __str__(self):
+        return self.name

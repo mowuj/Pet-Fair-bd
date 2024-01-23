@@ -9,10 +9,10 @@
 <div class="my-5 mx-4">
     <h1 class="text-center text-info">Profile</h1>
 
-    <div class="d-flex">
+    <div class="d-md-flex">
         <div class="profile-left col-md-3">
-        <div class="card shadow-lg rounded-5" style="width: 18rem;">
-  <img src="{{customer.image.url}}" class="card-img-top rounded-circle" alt="...">
+        <div class="card shadow-lg rounded-5 p-2" style="width: 18rem;">
+  <img src="{{customer.image.url}}" class="card-img-top img-thumbnail" alt="...">
   <div class="card-body">
     <h3 class="card-title">{{customer}}</h3>
     <h6 class="card-title">Full Name: {{customer.user.first_name}} {{customer.user.last_name}}</h6>
@@ -21,9 +21,6 @@
     <p class="card-title">Street: {{customer.street_address}}</p>
     <p class="card-title">City: {{customer.city}}</p>
     <p class="card-title">Country: {{customer.country}}</p>
-    
-    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-    <a href="{% url 'change_pass' %}" class="btn btn-info">Change Pass</a>
   </div>
 </div>
     </div>
@@ -36,29 +33,30 @@
             <table class="table table-bordered">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Category</th>
-      <th scope="col">Price</th>
-      <th scope="col">Availability</th>
-      <th scope="col">Image</th>
-      <th scope="col">Action</th>
+      <th scope="col" class="text-center">ID</th>
+      <th scope="col" class="text-center">Image</th>
+      <th scope="col" class="text-center">Name</th>
+      <th scope="col" class="text-center">Category</th>
+      <th scope="col" class="text-center">Price</th>
+      <th scope="col" class="text-center">Availability</th>
+      <th scope="col" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       {% for i in pets %}
-    <th scope="row">{{i.id}}</th>
-      <td>{{i.name}}</td>
-      <td>{% for category in i.category.all %}
+    <th scope="row" class="text-center">{{i.id}}</th>
+    <td class="text-center"><a class="" href="{% url 'edit_pet' i.id %}"><img class="rounded-circle" src="{{ i.image.url }}" style="width: 60px; height: 45px;" alt=""></a></td>
+      <td class="text-center">{{i.name}}</td>
+      <td class="text-center">{% for category in i.category.all %}
     {{ category.name }}
     {% if not forloop.last %}, {% endif %}
   {% endfor %}</td>
-      <td>{{i.price}}</td>
-      <td>{{i.availability}}</td>
-      <td><img class="rounded-circle" src="{{ i.image.url }}" style="width: 60px; height: 45px;" alt=""></td>
-      <td>
-        <a class="btn btn-warning" href="{% url 'edit_pet' i.id %}">Edit</a>
+      <td class="text-center">{{i.price}}</td>
+      <td class="text-center">{{i.availability}}</td>
+      
+      <td class="text-center">
+        
         <a class="btn btn-danger" href="{% url 'pet_delete' i.id %}">Delete</a>
       </td>
       {% endfor %}
@@ -74,29 +72,31 @@
             <table class="table table-bordered">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Type</th>
-      <th scope="col">Balance After Buy</th>
-      <th scope="col">Image</th>
+      <th scope="col" class="text-center">ID</th>
+      <th scope="col" class="text-center">Image</th>
+      <th scope="col" class="text-center">Name</th>
+      <th scope="col" class="text-center">Type</th>
+      <th scope="col" class="text-center">Price</th>      
+      <th scope="col" class="text-center">Balance After Buy</th>
+      
     </tr>
   </thead>
   <tbody>
     {% for i in buy %}
       <tr>
-        <th scope="row">{{i.id}}</th>
-        <td>{{i.pet.name}}</td>
-        <td>{{i.amount}}</td>
-        <td>{{i.get_transaction_type_display}}</td>
-        <td>{{i.balance_after_transaction}}</td>
-        <td><img class="rounded-circle" src="{{ i.pet.image.url }}" style="width: 60px; height: 45px;" alt=""></td>
+        <th scope="row" class="text-center">{{i.id}}</th>
+        <td class="text-center"><img class="rounded-circle" src="{{ i.pet.image.url }}" style="width: 60px; height: 45px;" alt=""></td>
+        <td class="text-center">{{i.pet.name}}</td>
+        <td class="text-center">{{i.get_transaction_type_display}}</td>
+        <td class="text-center">{{i.amount}}</td>
+        <td class="text-center">{{i.balance_after_transaction}}</td>
+        
       </tr>
     {% endfor %}
     <tr>
-            <td colspan="3"></td>
-            <td><strong>Total Buying Price:</strong></td>
-            <td colspan="2"><b>${{ total_buy_price|floatformat:2|intcomma }}</b> </td>
+            <td colspan="4"></td>
+            <td class="text-center"><strong>Total Buying Price:</strong></td>
+            <td colspan="1" class="text-center"><b>${{ total_buy_price|floatformat:2|intcomma }}</b> </td>
           </tr>
   </tbody>
 </table>
@@ -108,28 +108,28 @@
             <table class="table table-bordered">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Date</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Type</th>
-      <th scope="col">Balance After Buy</th>
+      <th scope="col" class="text-center">ID</th>
+      <th scope="col" class="text-center">Date</th>
+      <th scope="col" class="text-center">Type</th>
+      <th scope="col" class="text-center">Amount</th>
+      <th scope="col" class="text-center">Balance After Buy</th>
     </tr>
   </thead>
   <tbody>
     {% for i in transaction %}
       <tr>
-        <th scope="row">{{i.id}}</th>
-        <td>{{ i.timestamps|date:"F d, Y h:i A" }}</td>
-        <td>{{i.amount}}</td>
-        <td>{{i.get_transaction_type_display}}</td>
-        <td>{{i.balance_after_transaction}}</td>
+        <th scope="row" class="text-center">{{i.id}}</th>
+        <td class="text-center">{{ i.timestamps|date:"F d, Y h:i A" }}</td>
+        <td class="text-center">{{i.get_transaction_type_display}}</td>
+        <td class="text-center">{{i.amount}}</td>
+        <td class="text-center">{{i.balance_after_transaction}}</td>
         
       </tr>
     {% endfor %}
     <tr>
-            <td colspan="2"></td>
-            <td><strong>Total Transaction:</strong></td>
-            <td colspan="2"><b>${{ total|floatformat:2|intcomma }}</b> </td>
+            <td colspan="3"></td>
+            <td class="text-center"><strong>Total Transaction:</strong></td>
+            <td colspan="1" class="text-center"><b>${{ total|floatformat:2|intcomma }}</b> </td>
           </tr>
   </tbody>
 </table>

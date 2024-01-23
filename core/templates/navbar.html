@@ -1,11 +1,11 @@
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ <nav class="navbar navbar-expand-lg mx-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">PET FAIR BD</a>
+    <a class="navbar-brand fs-3" href="#">PET FAIR BD</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0  fs-4">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
@@ -35,34 +35,43 @@
         
       </ul>
       <div class="d-flex">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
       {% if request.user.is_staff %}
             <li class="nav-item mx-3">
-                <a class="nav-link active btn btn-outline-info text-dark" aria-current="page" href="{% url 'admin_home' %}">Admin Dashboard</a>
+                <a class="nav-link active btn text-dark" aria-current="page" href="{% url 'admin_home' %}">Admin Dashboard</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link active btn btn-outline-danger text-dark" aria-current="page" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link active btn text-dark" aria-current="page" href="{% url 'logout' %}">Logout</a>
             </li>
         {% elif request.user.is_authenticated %}
             <li class="nav-item mx-3">
-                <a class="nav-link active text-white px-3" aria-current="page" href="">Welcome Mr. ({{ request.user.username }})</a>
+                <a class="nav-link active text-dark px-3" aria-current="page" href="">Welcome Mr. ({{ request.user.username }})</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link active btn btn-info text-dark px-3" aria-current="page" href="">Balance: ${{ request.user.customer.balance }}</a>
+                <a class="nav-link active btn text-dark px-3" aria-current="page" href="">Balance: ${{ request.user.customer.balance }}</a>
             </li>
+            
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profile
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li> <hr>
+            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a></li> <hr>
+            <li><a class="dropdown-item" href="{% url 'change_pass' %}">Change Password</a></li>
+            
+          </ul>
+        </li>
             <li class="nav-item mx-3">
-                <a class="nav-link active btn btn-outline-warning text-dark" aria-current="page" href="{% url 'profile' %}">Profile</a>
-            </li>
-            <li class="nav-item mx-3">
-                <a class="nav-link active btn btn-outline-danger text-dark" aria-current="page" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link active btn  text-dark" aria-current="page" href="{% url 'logout' %}">Logout</a>
             </li>
         
         {% else %}
             <li class="nav-item mx-3">
-                <a class="nav-link active btn btn-outline-warning text-dark" aria-current="page" href="{% url 'register' %}">Register</a>
+                <a class="nav-link active btn text-dark" aria-current="page" href="{% url 'register' %}">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active btn btn-outline-primary text-dark" href="{% url 'login' %}" aria-current="page" href="{% url 'login' %}">Login</a>
+                <a class="nav-link active btn text-dark" href="{% url 'login' %}" aria-current="page" href="{% url 'login' %}">Login</a>
             </li>
         {% endif %}
     </ul>
