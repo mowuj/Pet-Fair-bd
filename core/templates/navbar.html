@@ -1,4 +1,4 @@
- <nav class="navbar navbar-expand-lg ">
+ <nav class="navbar navbar-expand-lg mx-2">
   <div class="container-fluid">
     <a class="navbar-brand fs-4" href="#">PET FAIR BD</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,9 +51,7 @@
                 <a class="nav-link active btn text-dark" aria-current="page" href="{% url 'logout' %}">Logout</a>
             </li>
         {% elif request.user.is_authenticated %}
-            <li class="nav-item mx-3">
-                <a class="nav-link active text-dark px-3 bg-info rounded" aria-current="page" href="">{{ request.user.username }}</a>
-            </li>
+            
             <li class="nav-item mx-3">
                 <a class="nav-link active btn text-dark px-3" aria-current="page" href="">Balance: ${{ request.user.customer.balance }}</a>
             </li>
