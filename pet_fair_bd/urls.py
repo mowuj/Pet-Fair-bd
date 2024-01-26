@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import HomeView
+from .views import HomeView,ContactView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('customer/',include('customer.urls')),
     path('pet/',include('pet.urls')),
     path('',HomeView.as_view(),name='home'),
+    path('contact',ContactView.as_view(),name='contact'),
     path('transaction/',include('transaction.urls')),
 
 ]

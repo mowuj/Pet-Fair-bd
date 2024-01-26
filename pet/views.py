@@ -18,7 +18,7 @@ from django.db.models import Q
 class AddPetView(CreateView):
     model=Pet
     form_class = PetForm
-    template_name='home.html'
+    template_name='pet/add_pet.html'
     success_url = reverse_lazy('all_pets')
 
     def form_valid(self, form):
