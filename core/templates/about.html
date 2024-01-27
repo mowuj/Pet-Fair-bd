@@ -7,7 +7,7 @@
 {% block content %}
   
 <div class="container my-5">
-<div class="banner d-flex justify-content-between align-items-center gap-4">
+<div class="banner d-md-flex justify-content-between align-items-center gap-4">
 
 <div class="col-md-6" style="height: 90vh;">
   <img src="{% static "img/cat.jpg" %}" alt="" class="img-fluid rounded-circle w-100 h-100" style="object-fit: cover; object-position: center center;">
@@ -73,24 +73,24 @@
 </div>
 
 <h1 class="text-center text-info my-5">Our Achivement</h1>
-<div class="container bottom-banner d-md-flex justify-content-around align-items-center gap-5 p-5 my-5 rounded-3 shadow-lg" style="height: 60vh;">
-  
-  <div class="d-flex flex-column align-items-center">
+<div class="container bottom-banner d-flex flex-wrap justify-content-around align-items-center p-5 my-5 rounded-3 shadow-lg custom-height-for-md">
+
+  <div class="col-6 col-md-3 d-flex flex-column align-items-center">
     <img src="{% static "img/pet11.png" %}" alt="" style="width: 100px;" class="rounded-circle bg-white img-fluid">
     <h1 class="text-white">15</h1>
     <h5 class="text-white">Professionals</h5>
   </div>
-  <div class="d-flex flex-column align-items-center">
+  <div class="col-6 col-md-3 d-flex flex-column align-items-center">
     <img src="{% static "img/pet10.jpg" %}" alt="" style="width: 100px;" class="rounded-circle bg-white">
     <h1 class="text-white">100</h1>
     <h5 class="text-white">Adopted Pets</h5>
   </div>
-  <div class="d-flex flex-column align-items-center">
+  <div class="col-6 col-md-3 d-flex flex-column align-items-center">
     <img src="{% static "img/award.png" %}" alt="" style="width: 100px;" class="rounded-circle bg-white">
     <h1 class="text-white">12</h1>
     <h5 class="text-white">Awards</h5>
   </div>
-  <div class="d-flex flex-column align-items-center">
+  <div class="col-6 col-md-3 d-flex flex-column align-items-center">
     <img src="{% static "img/pet9.jpg" %}" alt="" style="width: 100px;" class="rounded-circle bg-white">
     <h1 class="text-white">1000</h1>
     <h5 class="text-white">Clients</h5>

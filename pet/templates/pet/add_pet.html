@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="my-5">
+<div class="my-5 col-md-6 mx-auto">
     <h1 class="text-center text-info my-5">Drop Your Pet Here </h1>
-    <form action="" class="w-50 m-auto shadow-lg p-5 mb-5 add-pet" method="post" enctype="multipart/form-data">
+    <form action="" class="m-auto shadow-lg p-5 mb-5 add-pet" method="post" enctype="multipart/form-data">
     
     {% csrf_token %}
     {{form | crispy}}
