@@ -1,10 +1,188 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% block title %}
   <title>About US</title>
 {% endblock title %}
 
 {% block content %}
   
+<div class="container my-5">
+<div class="banner d-flex justify-content-between align-items-center gap-4">
+
+<div class="col-md-6" style="height: 90vh;">
+  <img src="{% static "img/cat.jpg" %}" alt="" class="img-fluid rounded-circle w-100 h-100" style="object-fit: cover; object-position: center center;">
+</div>
+<div class="col-md-6">
+<h1 class="my-5">
+  <span class="text-danger">WE ARE BEST</span> <br> FOR YOUR PET CARE
+</h1>
+<p class="fs-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus praesentium cum maiores, quos deserunt reiciendis ad ea odio placeat, earum libero exercitationem repellat corporis pariatur atque at, error perspiciatis possimus quasi doloribus cupiditate temporibus fugiat ipsam sunt! Iste, aliquid natus?</p>
+
+<h5>We Provide</h5> <hr>
+<ul>
+  <li>Best Food For your Pet</li>
+  <li>Best Place for Buy Pet</li>
+  <li>Best Place for Sell Pet</li>
+  <li>Best Treatment for your Pet</li>
+</ul>
+</div>
+</div>
+
+<div class="process">
+  <h1 class="text-info text-center my-5">Pet Adoption Process</h1>
+<div class="container icons d-md-flex justify-content-between align-items-center my-5  gap-3 gap-md-5 shadow-sm p-5">
+
+<div class="card w-100 border-0 p-4"  style="background-color: transparent;">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="">
+        <img src="{% static "img/find.jpg" %}" alt="" style="width: 300px;" class="my-4 py-1 rounded-circle border-5">
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center"">
+        <h4 class="card-title">Find your pet</h4>
+        <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptatibus officiis harum aliquam recusandae laboriosam possimus! Facere distinctio nulla modi.</p>
+    </div>
+</div>
+</div>
+<div class="card w-100 border-0 p-4"  style="background-color: transparent;">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="">
+        <img src="{% static "img/know.jpg" %}" alt="" style="width: 300px;" class="my-4 py-1 rounded-circle border-5">
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center"">
+        <h4 class="card-title">Know your pet</h4>
+        <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptatibus officiis harum aliquam recusandae laboriosam possimus! Facere distinctio nulla modi.</p>
+    </div>
+</div>
+</div>
+<div class="card w-100 border-0 p-4"  style="background-color: transparent;">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="">
+        <img src="{% static "img/take.jpg" %}" alt="" style="width: 300px;" class="my-4 py-1 rounded-circle border-5">
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center"">
+        <h4 class="card-title">Take your pet home </h4>
+        <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptatibus officiis harum aliquam recusandae laboriosam possimus! Facere distinctio nulla modi.</p>
+    </div>
+</div>
+</div>
+
+
+      
+  </div>
+
+</div>
+
+<h1 class="text-center text-info my-5">Our Achivement</h1>
+<div class="container bottom-banner d-md-flex justify-content-around align-items-center gap-5 p-5 my-5 rounded-3 shadow-lg" style="height: 60vh;">
+  
+  <div class="d-flex flex-column align-items-center">
+    <img src="{% static "img/pet11.png" %}" alt="" style="width: 100px;" class="rounded-circle bg-white img-fluid">
+    <h1 class="text-white">15</h1>
+    <h5 class="text-white">Professionals</h5>
+  </div>
+  <div class="d-flex flex-column align-items-center">
+    <img src="{% static "img/pet10.jpg" %}" alt="" style="width: 100px;" class="rounded-circle bg-white">
+    <h1 class="text-white">100</h1>
+    <h5 class="text-white">Adopted Pets</h5>
+  </div>
+  <div class="d-flex flex-column align-items-center">
+    <img src="{% static "img/award.png" %}" alt="" style="width: 100px;" class="rounded-circle bg-white">
+    <h1 class="text-white">12</h1>
+    <h5 class="text-white">Awards</h5>
+  </div>
+  <div class="d-flex flex-column align-items-center">
+    <img src="{% static "img/pet9.jpg" %}" alt="" style="width: 100px;" class="rounded-circle bg-white">
+    <h1 class="text-white">1000</h1>
+    <h5 class="text-white">Clients</h5>
+  </div>
+</div>
+
+<div class="service-container container text-center  p-3 mt-5 w-100 m-auto">
+        <h1 class="title text-info mb-4">Meet Our Team</h1>
+        
+        <div
+          class="swiffy-slider slider-item-show3 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible"
+        >
+          <ul id="service-container" class="slider-container py-4">
+            
+              <li>
+                <div class="card shadow-lg h-100">
+                <div class="ratio ratio-1x1">
+                    <img src="{% static "img/ceo.jpg" %}" class="card-img-top rounded-circle img-fluid p-2" loading="lazy" alt="..." style="object-fit: cover; object-position: center center;">
+                </div>
+                <div class="card-body  p-3 p-xl-5">
+                    <h3 class="card-title h5">Ahsan Habib</h3>
+                    <h5 class="card-text">Pet Sitter</h5>
+                    <p class="card-text"><i class="fab fa-facebook fs-3 me-3"></i> 
+                    <i class="fab fa-google fs-3 me-3"></i>
+                  <i class="fab fa-twitter fs-3"></i></p>
+                </div>
+            </div>
+            </li>
+              <li>
+                <div class="card shadow-lg h-100">
+                <div class="ratio ratio-1x1">
+                    <img src="{% static "img/women1.jpg" %}" class="card-img-top rounded-circle img-fluid p-2" loading="lazy" alt="..." style="object-fit: cover; object-position: center center;">
+                </div>
+                <div class="card-body  p-3 p-xl-5">
+                    <h3 class="card-title h5">Afia Jannat</h3>
+                    <h5 class="card-text">Pet Grommer</h5>
+                    <p class="card-text"><i class="fab fa-facebook fs-3 me-3"></i> 
+                    <i class="fab fa-google fs-3 me-3"></i>
+                  <i class="fab fa-twitter fs-3"></i></p>
+                </div>
+            </div>
+            </li>
+              <li>
+                <div class="card shadow-lg h-100">
+                <div class="ratio ratio-1x1">
+                    <img src="{% static "img/women2.jpg" %}" class="card-img-top rounded-circle img-fluid p-2" loading="lazy" alt="..." style="object-fit: cover; object-position: center center;">
+                </div>
+                <div class="card-body  p-3 p-xl-5">
+                    <h3 class="card-title h5">Mihiya Tyba</h3>
+                    <h5 class="card-text">Pet Doctor</h5>
+                    <p class="card-text"><i class="fab fa-facebook fs-3 me-3"></i> 
+                    <i class="fab fa-google fs-3 me-3"></i>
+                  <i class="fab fa-twitter fs-3"></i></p>
+                </div>
+            </div>
+            </li>
+              <li>
+                <div class="card shadow-lg h-100">
+                <div class="ratio ratio-1x1">
+                    <img src="{% static "img/women3.jpg" %}" class="card-img-top rounded-circle img-fluid p-2" loading="lazy" alt="..." style="object-fit: cover; object-position: center center;">
+                </div>
+                <div class="card-body  p-3 p-xl-5">
+                    <h3 class="card-title h5">Subaita Bushra</h3>
+                    <h5 class="card-text">Pet Sitter</h5>
+                    <p class="card-text"><i class="fab fa-facebook fs-3 me-3"></i> 
+                    <i class="fab fa-google fs-3 me-3"></i>
+                  <i class="fab fa-twitter fs-3"></i></p>
+                </div>
+            </div>
+            </li>
+            
+          </ul>
+
+          <button
+            type="button"
+            class="slider-nav"
+            aria-label="Go left"
+          ></button>
+          <button
+            type="button"
+            class="slider-nav slider-nav-next"
+            aria-label="Go left"
+          ></button>
+
+          <div class="slider-indicators">
+            <button class="active" aria-label="Go to slide"></button>
+            <button aria-label="Go to slide"></button>
+            <button aria-label="Go to slide"></button>
+            <button aria-label="Go to slide"></button>
+            <button aria-label="Go to slide"></button>
+          </div>
+        </div>
+      </div>
+</div>
 {% endblock content %}

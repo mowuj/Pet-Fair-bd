@@ -5,7 +5,20 @@
   padding: 5px;
   margin-top: 38px;
 }
-/* .bottom-banner {
-  background: linear-gradient(red, rgb(243, 178, 178)),
-  url('{% static "static/core/img/cat.jpg" %}');
-} */
+
+
+.add-pet{
+  background-image: url('../img/service2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.bottom-banner{
+  background-image: url('../img/cat.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.login{
+  background-image: url('../img/cat2.jpg');
+  background-size: cover;
+  background-position: center;
+}
