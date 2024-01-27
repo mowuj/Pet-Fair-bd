@@ -1,11 +1,12 @@
+ {% load static %}
  <nav class="navbar navbar-expand-lg mx-2">
   <div class="container-fluid">
-    <a class="navbar-brand fs-4" href="{% url 'home' %}">PET FAIR BD</a>
+    <a class="navbar-brand fs-4" href="{% url 'home' %}"> <img src="{% static "img/navimg.png" %}" alt="" style="width: 180px;"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0  fs-5">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
         {% if request.user.is_staff %}
         
@@ -46,7 +47,7 @@
         
       </ul>
       <div class="d-flex">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       {% if request.user.is_staff %}
             <li class="nav-item mx-3">
                 <a class="nav-link active btn text-dark" aria-current="page" href="{% url 'admin_home' %}">Admin Dashboard</a>

@@ -1,0 +1,11 @@
+.custom-badge {
+  font-size: 1rem;
+  width: 60px;
+  height: 40px;
+  padding: 5px;
+  margin-top: 38px;
+}
+/* .bottom-banner {
+  background: linear-gradient(red, rgb(243, 178, 178)),
+  url('{% static "static/core/img/cat.jpg" %}');
+} */
